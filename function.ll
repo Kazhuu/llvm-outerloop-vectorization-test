@@ -1,12 +1,10 @@
-; ModuleID = 'main.c'
-source_filename = "main.c"
+; ModuleID = 'function.c'
+source_filename = "function.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@work_group_size = dso_local local_unnamed_addr constant i32 1000, align 4
-
 ; Function Attrs: nofree norecurse nounwind sspstrong uwtable
-define dso_local void @foo1(double* noalias nocapture readonly %0, double* noalias nocapture readonly %1, double* noalias nocapture %2) local_unnamed_addr #0 {
+define dso_local void @foo(double* noalias nocapture readonly %0, double* noalias nocapture readonly %1, double* noalias nocapture %2) local_unnamed_addr #0 {
   br label %5
 
 4:                                                ; preds = %11
@@ -25,7 +23,7 @@ define dso_local void @foo1(double* noalias nocapture readonly %0, double* noali
   store double %18, double* %12, align 8, !tbaa !4
   %13 = add nuw nsw i64 %6, 1
   %14 = icmp eq i64 %13, 1000
-  br i1 %14, label %4, label %5, !llvm.loop !8
+  br i1 %14, label %4, label %5
 
 15:                                               ; preds = %15, %5
   %16 = phi i32 [ 0, %5 ], [ %19, %15 ]
@@ -49,5 +47,3 @@ attributes #0 = { nofree norecurse nounwind sspstrong uwtable "correctly-rounded
 !5 = !{!"double", !6, i64 0}
 !6 = !{!"omnipotent char", !7, i64 0}
 !7 = !{!"Simple C/C++ TBAA"}
-!8 = distinct !{!8, !9}
-!9 = !{!"llvm.loop.vectorize.enable", i1 true}

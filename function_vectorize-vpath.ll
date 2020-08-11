@@ -1,12 +1,10 @@
-; ModuleID = '/home/kazooie/programming/loop-vectorize-llvm/main.ll'
-source_filename = "main.c"
+; ModuleID = '/home/kazooie/programming/loop-vectorize-llvm/function_vectorize.ll'
+source_filename = "function_vectorize.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@work_group_size = dso_local local_unnamed_addr constant i32 1000, align 4
-
 ; Function Attrs: nofree norecurse nounwind sspstrong uwtable
-define dso_local void @foo1(double* noalias nocapture readonly %0, double* noalias nocapture readonly %1, double* noalias nocapture %2) local_unnamed_addr #0 {
+define dso_local void @foo_vectorize(double* noalias nocapture readonly %0, double* noalias nocapture readonly %1, double* noalias nocapture %2) local_unnamed_addr #0 {
   br i1 false, label %scalar.ph, label %vector.ph
 
 vector.ph:                                        ; preds = %3
