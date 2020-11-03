@@ -1,9 +1,9 @@
-; ModuleID = 'pocl_2mm.ll'
+; ModuleID = 'parallel.bc'
 source_filename = "parallel_bc"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
-; Function Attrs: nofree nosync nounwind readnone speculatable willreturn
+; Function Attrs: nounwind readnone speculatable willreturn
 declare float @llvm.fmuladd.f32(float, float, float) #0
 
 ; Function Attrs: alwaysinline nofree norecurse nounwind
@@ -276,7 +276,7 @@ _pocl_kernel_mm2_kernel1.exit:                    ; preds = %pregion_for_end.i.i
   ret void
 }
 
-attributes #0 = { nofree nosync nounwind readnone speculatable willreturn }
+attributes #0 = { nounwind readnone speculatable willreturn }
 attributes #1 = { alwaysinline nofree norecurse nounwind "disable-tail-calls"="false" "frame-pointer"="none" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-builtins" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "stackrealign" "target-cpu"="skylake" "target-features"="+adx,+aes,+avx,+avx2,+bmi,+bmi2,+clflushopt,+cx16,+cx8,+f16c,+fma,+fsgsbase,+fxsr,+invpcid,+lzcnt,+mmx,+movbe,+pclmul,+popcnt,+prfchw,+rdrnd,+rdseed,+sahf,+sgx,+sse,+sse2,+sse3,+sse4.1,+sse4.2,+ssse3,+x87,+xsave,+xsavec,+xsaveopt,+xsaves" "uniform-work-group-size"="true" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #2 = { nofree nounwind }
 attributes #3 = { nounwind }
