@@ -1,11 +1,10 @@
-llvm_dir="/home/kazooie/local/llvm/master/bin"
-#opt="${llvm_dir}/opt"
-opt=opt
-debug=""
+llvm_dir="/home/kazooie/local/llvm/rv/bin"
+opt="${llvm_dir}/opt"
+debug="--debug"
 
-#file="pocl_2mm_kernel1.ll"
-file="pocl_noif_2mm_kernel1.ll"
-dot_file="._pocl_kernel_mm2_kernel1.dot"
+#file="pocl_atax_kernel1.ll"
+file="pocl_noif_atax_kernel1.ll"
+dot_file="._pocl_kernel_atax_kernel1.dot"
 
 echo "POCL IR"
 ${opt} -dot-cfg ${file} > /dev/null 2>&1
@@ -23,6 +22,12 @@ ${opt} ${file} -o vplan_predicate_${file} -S ${debug} --loop-vectorize --pass-re
 ${opt} -dot-cfg vplan_predicate_${file} > /dev/null 2>&1
 dot -Tpdf ${dot_file} -o vplan_predicate_${file}.pdf
 
+printf "\n\n\n\n"
+echo "RV IR"
+${opt} ${file} --load=libRV.so -o rv_${file} -S ${debug} --rv-loopvec --rv-loop-vectorize --pass-remarks=rv-loop --pass-remarks-missed=rv-loop --pass-remarks-analysis=rv-loop
+${opt} -dot-cfg rv_${file} > /dev/null 2>&1
+dot -Tpdf ${dot_file} -o rv_${file}.pdf
+
 printf "\nResults:\n"
 if grep -q vectorized vplan_${file}; then
   echo "VPlan native path vectorized!"
@@ -33,4 +38,9 @@ if grep -q vectorized vplan_predicate_${file}; then
   echo "VPlan with predication vectorized!"
 else
   echo "VPlan with predication not vectorized!"
+fi
+if grep -q vectorized rv_${file}; then
+  echo "RV vectorized!"
+else
+  echo "RV not vectorized!"
 fi
